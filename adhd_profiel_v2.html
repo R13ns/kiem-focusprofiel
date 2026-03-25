@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ADHD Profiel — De Kiem</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f4f7f4;
+  --bg2: #e8ede8;
+  --ink: #1a2e1a;
+  --ink2: #2d4a2d;
+  --ink3: #6a8a6a;
+  --u: #c0392b;
+  --u-light: #fdecea;
+  --m: #1a5c8a;
+  --m-light: #e5f0f8;
+  --e: #2e7d52;
+  --e-light: #e8f6ee;
+  --kiem-green: #6aaa2a;
+  --kiem-blue: #1a3d6e;
+  --gold: #6aaa2a;
+  --r: 12px;
+  --sh: 0 2px 16px rgba(26,46,26,0.07);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;}
+
+/* ── NAV TABS ── */
+.app-nav{
+  background: var(--kiem-blue);
+  display:flex;
+  align-items:stretch;
+  padding:0 40px;
+  gap:0;
+  position:sticky;top:0;z-index:100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.18);
+}
+.nav-logo{
+  display:flex;
+  align-items:center;
+  padding: 8px 20px 8px 0;
+  border-right:1px solid rgba(255,255,255,0.12);
+  margin-right:16px;
+  flex-shrink:0;
+}
+.nav-logo img{
+  height: 44px;
+  width: auto;
+  display:block;
+}
+.nav-brand{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding: 0 20px 0 0;
+  border-right:1px solid rgba(255,255,255,0.12);
+  margin-right:16px;
+}
+.nav-brand-title{
+  font-family:'DM Serif Display',serif;
+  font-size:1rem;
+  color:white;
+  line-height:1.1;
+}
+.nav-brand-sub{
+  font-size:0.68rem;
+  color:rgba(255,255,255,0.5);
+  font-weight:400;
+  margin-top:2px;
+  letter-spacing:0.03em;
+}
+.nav-brand em{color:var(--kiem-green);font-style:normal;}
+.nav-tab{
+  padding:14px 18px;
+  font-size:0.8rem;
+  font-weight:500;
+  color:rgba(255,255,255,0.5);
+  cursor:pointer;
+  border-bottom:2px solid transparent;
+  transition:all 0.2s;
+  white-space:nowrap;
+  background:none;border-top:none;border-left:none;border-right:none;
+  font-family:'DM Sans',sans-serif;
+}
+.nav-tab:hover{color:rgba(255,255,255,0.85);}
+.nav-tab.active{color:white;border-bottom-color:var(--kiem-green);}
+
+/* ── PAGES ── */
+.page{display:none;padding:32px 40px 60px;}
+.page.active{display:block;}
+
+/* ── PAGE 1: PROFIEL OPBOUWEN ── */
+.page-header{margin-bottom:28px;}
+.page-header h2{font-family:'DM Serif Display',serif;font-size:1.8rem;line-height:1.1;}
+.page-header p{color:var(--ink3);font-size:0.9rem;margin-top:6px;max-width:560px;}
+
+/* Input layers */
+.input-layers{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;}
+.layer-card{border-radius:var(--r);padding:16px 18px;border-left:3px solid;}
+.layer-card.u{background:linear-gradient(135deg,#2a1510,#3d1f18);border-color:var(--u);color:var(--bg);}
+.layer-card.m{background:linear-gradient(135deg,#0d2a3d,#1a3d56);border-color:var(--m);color:var(--bg);}
+.layer-card.e{background:linear-gradient(135deg,#0d2a1a,#1a3d2b);border-color:var(--e);color:var(--bg);}
+.layer-icon{font-size:1.5rem;margin-bottom:6px;}
+.layer-code{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;opacity:0.55;margin-bottom:2px;}
+.layer-title{font-family:'DM Serif Display',serif;font-size:1rem;}
+.layer-desc{font-size:0.75rem;font-weight:300;opacity:0.6;margin-top:4px;line-height:1.4;}
+
+/* Filters */
+.filter-row{display:flex;gap:8px;align-items:center;margin-bottom:20px;flex-wrap:wrap;}
+.filter-label{font-size:0.75rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--ink3);}
+.fbtn{padding:5px 13px;border-radius:20px;border:1.5px solid var(--ink3);background:transparent;color:var(--ink2);font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;cursor:pointer;transition:all 0.2s;}
+.fbtn:hover{background:var(--bg2);}
+.fbtn.active{background:var(--ink);color:var(--bg);border-color:var(--ink);}
+.fbtn.fa-u{background:var(--u);color:white;border-color:var(--u);}
+.fbtn.fa-m{background:var(--m);color:white;border-color:var(--m);}
+.fbtn.fa-e{background:var(--e);color:white;border-color:var(--e);}
+
+/* Domain */
+.domain-section{margin-bottom:10px;border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);}
+.domain-header{display:flex;align-items:center;gap:10px;padding:13px 18px;background:var(--ink);color:var(--bg);cursor:pointer;user-select:none;}
+.domain-header:hover{background:#28201a;}
+.domain-num{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;font-size:0.75rem;font-weight:700;flex-shrink:0;}
+.domain-title-text{font-family:'DM Serif Display',serif;font-size:1rem;flex:1;}
+.domain-badge{font-size:0.7rem;background:rgba(255,255,255,0.1);padding:2px 8px;border-radius:10px;color:rgba(245,240,232,0.6);}
+.domain-arrow{font-size:0.9rem;opacity:0.4;transition:transform 0.3s;}
+.domain-header.open .domain-arrow{transform:rotate(180deg);}
+.domain-body{display:none;grid-template-columns:1fr 1fr;}
+.domain-body.open{display:grid;}
+.col-head{padding:8px 16px;font-size:0.68rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;display:flex;align-items:center;gap:5px;}
+.col-head.ch{background:#2d1f17;color:#e8c97e;}
+.col-head.st{background:#1a2d1f;color:#a8d5b5;}
+.items-col{padding:10px;display:flex;flex-direction:column;gap:5px;}
+.items-col.ch-col{background:#faf6f2;border-right:1px solid rgba(26,21,16,0.06);}
+.items-col.st-col{background:#f2faf5;}
+
+.item{border-radius:8px;padding:8px 11px;display:flex;align-items:flex-start;gap:8px;cursor:pointer;transition:all 0.18s;border:1.5px solid transparent;background:white;}
+.item:hover{transform:translateX(2px);}
+.item.ch{border-color:rgba(192,57,43,0.1);}
+.item.ch:hover{border-color:rgba(192,57,43,0.28);}
+.item.st{border-color:rgba(46,125,82,0.1);}
+.item.st:hover{border-color:rgba(46,125,82,0.28);}
+.item.rec.ch{border-color:var(--u);background:#fff5f4;border-width:2px;}
+.item.rec.st{border-color:var(--e);background:#f0faf5;border-width:2px;}
+.item.dimmed{opacity:0.15;pointer-events:none;}
+.check{width:17px;height:17px;border-radius:50%;border:1.5px solid rgba(26,21,16,0.18);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;font-size:0.6rem;color:transparent;transition:all 0.18s;}
+.item.rec.ch .check{background:var(--u);border-color:var(--u);color:white;}
+.item.rec.st .check{background:var(--e);border-color:var(--e);color:white;}
+.item-text{font-size:0.81rem;line-height:1.42;color:var(--ink2);}
+.item-tags{display:flex;gap:3px;margin-top:3px;flex-wrap:wrap;}
+.tag{font-size:0.6rem;font-weight:700;padding:1px 5px;border-radius:3px;}
+.tag.U{background:var(--u-light);color:var(--u);}
+.tag.M{background:var(--m-light);color:var(--m);}
+.tag.E{background:var(--e-light);color:var(--e);}
+
+/* Progress bar at bottom of page 1 */
+.mini-progress{margin-top:20px;background:white;border-radius:var(--r);padding:16px 20px;border:1.5px solid rgba(26,21,16,0.07);display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+.mp-stat{text-align:center;}
+.mp-num{font-family:'DM Serif Display',serif;font-size:1.6rem;line-height:1;}
+.mp-label{font-size:0.68rem;color:var(--ink3);margin-top:2px;}
+.mp-bars{flex:1;min-width:140px;}
+.mp-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.mp-rl{font-size:0.68rem;font-weight:600;width:14px;}
+.mp-bg{flex:1;height:5px;background:var(--bg2);border-radius:3px;overflow:hidden;}
+.mp-fill{height:100%;border-radius:3px;transition:width 0.35s ease;}
+.mp-ct{font-size:0.68rem;font-weight:600;width:18px;text-align:right;color:var(--ink2);}
+.cta-btn{margin-left:auto;padding:10px 22px;background:var(--ink);color:var(--bg);border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:500;cursor:pointer;transition:background 0.2s;white-space:nowrap;}
+.cta-btn:hover{background:#2d2418;}
+.cta-btn:disabled{opacity:0.35;cursor:not-allowed;}
+
+/* ── PAGE 2: MIJN PROFIEL ── */
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px;}
+.radar-wrap{background:white;border-radius:var(--r);padding:24px;box-shadow:var(--sh);display:flex;flex-direction:column;align-items:center;}
+.radar-wrap h3{font-family:'DM Serif Display',serif;font-size:1.1rem;margin-bottom:4px;align-self:flex-start;}
+.radar-wrap .sub{font-size:0.78rem;color:var(--ink3);align-self:flex-start;margin-bottom:16px;}
+
+.balance-panel{background:white;border-radius:var(--r);padding:24px;box-shadow:var(--sh);}
+.balance-panel h3{font-family:'DM Serif Display',serif;font-size:1.1rem;margin-bottom:4px;}
+.balance-panel .sub{font-size:0.78rem;color:var(--ink3);margin-bottom:16px;}
+.balance-row{margin-bottom:14px;}
+.balance-label{display:flex;justify-content:space-between;font-size:0.78rem;font-weight:500;margin-bottom:4px;}
+.balance-bar{height:8px;background:var(--bg2);border-radius:4px;overflow:hidden;position:relative;}
+.balance-inner{height:100%;border-radius:4px;transition:width 0.5s ease;}
+.balance-marker{position:absolute;top:-2px;width:2px;height:12px;background:var(--ink3);left:50%;transform:translateX(-50%);}
+.insight-box{margin-top:12px;padding:12px 14px;background:var(--bg);border-radius:8px;border-left:3px solid var(--gold);}
+.insight-box p{font-size:0.8rem;line-height:1.5;color:var(--ink2);}
+.insight-box strong{color:var(--ink);font-weight:600;}
+
+/* Dynamic conclusion */
+.conclusion-card{background:var(--ink);color:var(--bg);border-radius:var(--r);padding:28px 32px;margin-bottom:20px;position:relative;overflow:hidden;}
+.conclusion-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(to bottom,var(--u),var(--m),var(--e));}
+.conclusion-card h3{font-family:'DM Serif Display',serif;font-size:1.25rem;color:var(--gold);margin-bottom:14px;}
+.conclusion-blocks{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.c-block{background:rgba(255,255,255,0.06);border-radius:8px;padding:13px 15px;}
+.c-block.highlight{background:rgba(200,151,58,0.12);border:1px solid rgba(200,151,58,0.2);}
+.c-block-icon{font-size:1rem;margin-bottom:6px;}
+.c-block-title{font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;opacity:0.55;margin-bottom:4px;}
+.c-block-text{font-size:0.85rem;line-height:1.5;font-weight:300;}
+
+/* Reflection questions */
+.reflect-section{margin-bottom:24px;}
+.reflect-section h3{font-family:'DM Serif Display',serif;font-size:1.2rem;margin-bottom:4px;}
+.reflect-section .sub{font-size:0.8rem;color:var(--ink3);margin-bottom:16px;}
+.reflect-cards{display:flex;flex-direction:column;gap:10px;}
+.reflect-card{background:white;border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh);border-left:3px solid var(--bg2);transition:border-color 0.2s;}
+.reflect-card:hover{border-left-color:var(--m);}
+.reflect-card .rc-tag{font-size:0.65rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px;}
+.reflect-card .rc-tag.u{color:var(--u);}
+.reflect-card .rc-tag.m{color:var(--m);}
+.reflect-card .rc-tag.e{color:var(--e);}
+.reflect-card .rc-q{font-size:0.9rem;font-weight:500;line-height:1.45;color:var(--ink);margin-bottom:8px;}
+.reflect-card .rc-hint{font-size:0.78rem;color:var(--ink3);line-height:1.4;}
+.reflect-card textarea{width:100%;margin-top:10px;padding:10px 12px;border:1.5px solid rgba(26,21,16,0.1);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.82rem;line-height:1.5;color:var(--ink2);background:var(--bg);resize:vertical;min-height:68px;transition:border-color 0.2s;}
+.reflect-card textarea:focus{outline:none;border-color:var(--m);}
+
+/* Empty state */
+.empty-state{text-align:center;padding:60px 20px;color:var(--ink3);}
+.empty-state .es-icon{font-size:2.5rem;margin-bottom:12px;}
+.empty-state p{font-size:0.9rem;line-height:1.5;max-width:320px;margin:0 auto;}
+.empty-state button{margin-top:16px;padding:10px 22px;background:var(--ink);color:var(--bg);border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:0.85rem;cursor:pointer;}
+
+/* ── DIMENSION INTRO PANELS ── */
+.dim-intro{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-radius:var(--r);overflow:hidden;margin-bottom:6px;box-shadow:var(--sh);}
+.dim-panel{padding:16px 14px;position:relative;overflow:hidden;}
+.dim-panel.u{background:linear-gradient(135deg,#3d1a14,#5a2318);}
+.dim-panel.m{background:linear-gradient(135deg,#0e2a40,#1a4060);}
+.dim-panel.e{background:linear-gradient(135deg,#0d2e1a,#1a4a28);}
+.dim-panel-code{font-size:0.6rem;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;opacity:0.45;color:white;margin-bottom:3px;}
+.dim-panel-title{font-family:'DM Serif Display',serif;font-size:0.9rem;color:white;margin-bottom:10px;line-height:1.2;}
+.dim-icons{display:flex;flex-wrap:wrap;gap:5px;}
+.dim-icon-chip{display:flex;align-items:center;gap:4px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:3px 8px;font-size:0.68rem;color:rgba(255,255,255,0.7);transition:all 0.2s;cursor:default;white-space:nowrap;}
+.dim-icon-chip:hover{background:rgba(255,255,255,0.15);color:white;}
+.dim-icon-chip .di{font-size:0.88rem;}
+
+/* ── ITEM ICONS ── */
+.item-icon{font-size:1rem;flex-shrink:0;width:26px;height:26px;display:flex;align-items:center;justify-content:center;border-radius:7px;background:rgba(26,21,16,0.04);transition:transform 0.18s;}
+.item:hover .item-icon{transform:scale(1.2);}
+.item.rec .item-icon{background:rgba(26,21,16,0.07);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:720px){
+  .app-nav{padding:0 16px;}
+  .page{padding:20px 16px 48px;}
+  .input-layers,.profile-grid,.conclusion-blocks,.domain-body,.dim-intro{grid-template-columns:1fr;}
+  .balance-panel,.radar-wrap{padding:16px;}
+}
+
+@keyframes fadeSlide{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.page.active{animation:fadeSlide 0.25s ease;}
+</style>
+</head>
+<body>
+
+<nav class="app-nav">
+  <div class="nav-logo">
+    <img src="data:image/png;base64,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" alt="De Kiem logo" />
+  </div>
+  <div class="nav-brand">
+    <div class="nav-brand-title">ADHD <em>Profiel</em></div>
+    <div class="nav-brand-sub">Kenmerken herkennen &amp; begrijpen</div>
+  </div>
+  <button class="nav-tab active" onclick="showPage('build',this)">1 · Profiel opbouwen</button>
+  <button class="nav-tab" onclick="showPage('profile',this)" id="tab-profile">2 · Mijn profiel</button>
+</nav>
+
+<!-- ═══ PAGE 1: OPBOUWEN ═══ -->
+<div class="page active" id="page-build">
+  <div class="page-header">
+    <h2>Herken jij dit?</h2>
+    <p>Klik aan wat jij herkent in jezelf. Er zijn geen goede of foute antwoorden — het gaat erom wat <em>jouw</em> ervaring is.</p>
+  </div>
+
+  <div class="dim-intro">
+    <div class="dim-panel u">
+      <div class="dim-panel-code">U — Uiterlijk</div>
+      <div class="dim-panel-title">Wat anderen<br>kunnen zien</div>
+      <div class="dim-icons">
+        <div class="dim-icon-chip"><span class="di">🏃</span> Hyperactiviteit</div>
+        <div class="dim-icon-chip"><span class="di">💭</span> Dagdromen</div>
+        <div class="dim-icon-chip"><span class="di">⏰</span> Tijdsblindheid</div>
+        <div class="dim-icon-chip"><span class="di">💥</span> Impulsiviteit</div>
+        <div class="dim-icon-chip"><span class="di">🔁</span> Herhaald gedrag</div>
+      </div>
+    </div>
+    <div class="dim-panel m">
+      <div class="dim-panel-code">M — Mentaal</div>
+      <div class="dim-panel-title">Hoe je<br>denkt</div>
+      <div class="dim-icons">
+        <div class="dim-icon-chip"><span class="di">🌀</span> Overthinking</div>
+        <div class="dim-icon-chip"><span class="di">📅</span> Alleen nu</div>
+        <div class="dim-icon-chip"><span class="di">🔀</span> Non-lineair</div>
+        <div class="dim-icon-chip"><span class="di">☯️</span> Dualiteit</div>
+        <div class="dim-icon-chip"><span class="di">🎯</span> Hyperfocus</div>
+      </div>
+    </div>
+    <div class="dim-panel e">
+      <div class="dim-panel-code">E — Emotioneel</div>
+      <div class="dim-panel-title">Hoe je<br>voelt</div>
+      <div class="dim-icons">
+        <div class="dim-icon-chip"><span class="di">⚡</span> Ontlading</div>
+        <div class="dim-icon-chip"><span class="di">🌊</span> Overspoeling</div>
+        <div class="dim-icon-chip"><span class="di">🔥</span> Intensiteit</div>
+        <div class="dim-icon-chip"><span class="di">📡</span> Gevoeligheid</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter-row">
+    <span class="filter-label">Toon:</span>
+    <button class="fbtn active" onclick="setFilter('all',this)">Alles</button>
+    <button class="fbtn" onclick="setFilter('U',this)">U — Uiterlijk</button>
+    <button class="fbtn" onclick="setFilter('M',this)">M — Mentaal</button>
+    <button class="fbtn" onclick="setFilter('E',this)">E — Emotioneel</button>
+  </div>
+
+  <div id="domains-container"></div>
+
+  <div class="mini-progress">
+    <div class="mp-stat"><div class="mp-num" id="mp-total">0</div><div class="mp-label">aangevinkt</div></div>
+    <div class="mp-stat"><div class="mp-num" id="mp-ch" style="color:var(--u)">0</div><div class="mp-label">uitdagingen</div></div>
+    <div class="mp-stat"><div class="mp-num" id="mp-st" style="color:var(--e)">0</div><div class="mp-label">sterktes</div></div>
+    <div class="mp-bars">
+      <div class="mp-row"><span class="mp-rl" style="color:var(--u)">U</span><div class="mp-bg"><div class="mp-fill" id="fill-U" style="background:var(--u);width:0%"></div></div><span class="mp-ct" id="ct-U">0</span></div>
+      <div class="mp-row"><span class="mp-rl" style="color:var(--m)">M</span><div class="mp-bg"><div class="mp-fill" id="fill-M" style="background:var(--m);width:0%"></div></div><span class="mp-ct" id="ct-M">0</span></div>
+      <div class="mp-row"><span class="mp-rl" style="color:var(--e)">E</span><div class="mp-bg"><div class="mp-fill" id="fill-E" style="background:var(--e);width:0%"></div></div><span class="mp-ct" id="ct-E">0</span></div>
+    </div>
+    <button class="cta-btn" id="view-profile-btn" onclick="showPage('profile',document.getElementById('tab-profile'))" disabled>
+      Bekijk mijn profiel →
+    </button>
+  </div>
+</div>
+
+<!-- ═══ PAGE 2: PROFIEL ═══ -->
+<div class="page" id="page-profile">
+  <div class="page-header">
+    <h2>Jouw profiel</h2>
+    <p>Gebaseerd op wat jij herkende — geen diagnose, maar een spiegel.</p>
+  </div>
+
+  <div id="profile-content">
+    <div class="empty-state">
+      <div class="es-icon">🧭</div>
+      <p>Vink eerst items aan in stap 1 om je profiel te zien.</p>
+      <button onclick="showPage('build',document.querySelector('.nav-tab'))">← Ga naar stap 1</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// DATA
+// ══════════════════════════════════════════
+const DOMAINS = [
+  {
+    id:1, title:"Ontwikkeling",
+    challenges:[
+      {icon:"🗣️", text:"Ik word vaak aangesproken op mijn gedrag",tags:["U"]},
+      {icon:"🎭", text:"Wat ik bedoel is niet altijd wat ik doe — mijn intentie en mijn gedrag lopen uiteen",tags:["U"]},
+      {icon:"🎮", text:"Ik heb het gevoel geen controle te hebben over mijn eigen gedrag",tags:["U"]},
+      {icon:"🧩", text:"Ik heb moeite om me aan te passen aan wat van mij verwacht wordt",tags:["U"]},
+      {icon:"🏫", text:"Ik heb het moeilijk op school of in gestructureerde omgevingen",tags:["M"]},
+      {icon:"⬛", text:"Anderen zien mij als radicaal, zwart-wit of impulsief",tags:["M"]},
+      {icon:"🌋", text:"Ik reageer vanuit een emotionele ontlading, niet vanuit keuze",tags:["E"]},
+      {icon:"🌫️", text:"Ik vind het moeilijk om mijn emoties te uiten, te onderscheiden of te begrijpen",tags:["E"]},
+    ],
+    strengths:[
+      {icon:"🎨", text:"Ik voel veel — en dat is ook een kracht",tags:["E"]},
+      {icon:"🔥", text:"Ik beleef dingen met grote emotionele intensiteit",tags:["E"]},
+      {icon:"💫", text:"Ik heb vurige passies waar ik volledig voor ga",tags:["E"]},
+      {icon:"🦋", text:"Ik ben authentiek — ik doe niet alsof",tags:["M"]},
+      {icon:"👁️", text:"Ik ben sterk visueel ingesteld en vang veel op zonder woorden",tags:["M"]},
+      {icon:"🌱", text:"Ik ben veerkrachtig en geef niet snel op",tags:["M"]},
+    ]
+  },
+  {
+    id:2, title:"Relaties en sociale aspecten",
+    challenges:[
+      {icon:"🫥", text:"Ik voel me vaak niet begrepen door anderen",tags:["E"]},
+      {icon:"🌊", text:"In sociale situaties raak ik snel emotioneel overspoeld",tags:["E"]},
+      {icon:"📏", text:"Ik zoek grenzen op — van mezelf en van anderen",tags:["U","E","M"]},
+      {icon:"🪞", text:"Ik heb niet altijd door welk effect mijn gedrag heeft op mensen om mij heen",tags:[]},
+      {icon:"🌀", text:"Ik kom soms egocentrisch of ongeïnteresseerd over, terwijl dat niet mijn bedoeling is",tags:["M"]},
+      {icon:"💨", text:"Ik raak snel uitgekeken op vriendschappen of relaties",tags:["E","M"]},
+      {icon:"👂", text:"Ik hecht veel waarde aan wat anderen van mij denken",tags:["E"]},
+    ],
+    strengths:[
+      {icon:"🫀", text:"Ik ben sterk empathisch — ik voel aan hoe het met iemand gaat",tags:["E"]},
+      {icon:"⚖️", text:"Ik heb een groot rechtvaardigheidsgevoel",tags:["E"]},
+      {icon:"🎯", text:"Ik ben direct en eerlijk in wat ik zeg",tags:["U"]},
+      {icon:"🗨️", text:"Ik ben verbaal sterk en kan goed verwoorden wat ik bedoel",tags:["U"]},
+    ]
+  },
+  {
+    id:3, title:"Mentale en persoonlijke leefwereld",
+    challenges:[
+      {icon:"🪨", text:"Ik heb het gevoel weinig impact te hebben op mijn omgeving",tags:[]},
+      {icon:"🔋", text:"Ik vind het moeilijk om gemotiveerd te blijven als iets me niet boeit",tags:["M"]},
+      {icon:"💔", text:"Mijn zelfbeeld lijdt eronder als ik faal — dat verwerk ik moeilijk",tags:["E","M"]},
+      {icon:"🔍", text:"Ik ben erg zelfkritisch",tags:["M"]},
+      {icon:"⚡", text:"Ik heb voortdurend prikkels en stimulatie nodig",tags:["M"]},
+      {icon:"🔄", text:"Ik merk dat ik verslavingsgevoelig ben",tags:[]},
+      {icon:"⏳", text:"Ik wil dingen nu — wachten of uitstellen kost mij veel moeite",tags:["M"]},
+      {icon:"🌡️", text:"Als ik iets sterk voel, geloof ik dat het ook waar is",tags:[]},
+    ],
+    strengths:[
+      {icon:"🧭", text:"Ik heb een sterke intuïtie — ik voel dingen aan zonder dat ik het kan uitleggen",tags:["E"]},
+      {icon:"✨", text:"Ik heb veel energie en enthousiasme als iets mij aanspreekt",tags:["E","U"]},
+      {icon:"💡", text:"Ik denk out-of-the-box en ben creatief",tags:["M"]},
+      {icon:"🕸️", text:"Ik maak snel associaties en verbind ideeën die anderen niet zien",tags:["M"]},
+      {icon:"🌊", text:"Ik ben flexibel en pas me makkelijk aan nieuwe situaties aan",tags:["M"]},
+      {icon:"🔭", text:"Als iets mij boeit, kan ik er volledig in opgaan — hyperfocus",tags:["M"]},
+    ]
+  }
+];
+
+// ══════════════════════════════════════════
+// REFLECTION QUESTION BANK
+// keyed by: dominant dimension, pattern type
+// ══════════════════════════════════════════
+const REFLECT_BANK = {
+  // Emotioneel dominant + uitdagingen hoog
+  E_challenge: [
+    {tag:'e', q:"Je herkent dat emoties snel en intens aanwezig zijn. Kan je een recente situatie bedenken waar die intensiteit je in de weg stond? Wat voelde je op dat moment?", hint:"Probeer het gevoel te benoemen zonder het te beoordelen."},
+    {tag:'e', q:"'Emotie = waarheid' — herken jij dat? Wanneer hielp dat geloof je, en wanneer werkte het tegen je?", hint:"Denk aan een moment waarop je iets heel zeker wist vanuit een gevoel, maar het later anders bleek."},
+  ],
+  E_strength: [
+    {tag:'e', q:"Jouw emotionele intensiteit is ook een kracht. In welke situaties heb je gemerkt dat je sterke empathie of rechtvaardigheidsgevoel het verschil maakte voor iemand anders?", hint:""},
+  ],
+  // Mentaal dominant
+  M_challenge: [
+    {tag:'m', q:"Je herkent dat structuur en motivatie lastig zijn. Wanneer lukt het wél — wat is er dan anders in die situatie?", hint:"Focus op omstandigheden, niet op wilskracht."},
+    {tag:'m', q:"Zelfkritiek herken je in jezelf. Wat zeg je tegen jezelf na een mislukking? En wat zou jij zeggen tegen een vriend in dezelfde situatie?", hint:"Let op het verschil tussen die twee stemmen."},
+  ],
+  M_strength: [
+    {tag:'m', q:"Creativiteit en hyperfocus zijn jouw motoren. Beschrijf een moment waarop je volledig in een taak verzonken was. Hoe voelde dat? Wat maakte het mogelijk?", hint:""},
+  ],
+  // Uiterlijk dominant
+  U_challenge: [
+    {tag:'u', q:"Je wordt vaak aangesproken op gedrag terwijl je intentie anders was. Kan je een voorbeeld geven? Hoe reageer je doorgaans als dat gebeurt?", hint:"Probeer te beschrijven wat er binnenin speelt op zo'n moment."},
+  ],
+  U_strength: [
+    {tag:'u', q:"Directheid en eerlijkheid zijn sterktes die jij herkent. Hoe reageren anderen meestal op jouw directheid? Wat vind jij zelf van die reacties?", hint:""},
+  ],
+  // Sociaal domein hoog
+  social_challenge: [
+    {tag:'e', q:"Niet begrepen worden is pijnlijk. In welke relatie of situatie voel je dat het sterkst? Wat zou je willen dat die ander begrijpt?", hint:"Je hoeft dit niet met die persoon te delen — het is voor jou."},
+  ],
+  // Verslavingsgevoeligheid aangevinkt
+  addiction: [
+    {tag:'m', q:"Verslavingsgevoeligheid heb jij herkend. Wat geeft de stof of het gedrag jou op het moment zelf? Wat vult het in?", hint:"Dit is geen oordeel — begrijpen wat iets geeft, helpt om alternatieven te vinden."},
+  ],
+  // Balans scheef: veel uitdagingen, weinig sterktes
+  blind_spot: [
+    {tag:'m', q:"Je herkende veel uitdagingen en relatief weinig sterktes. Dat is een veelvoorkomend patroon bij ADHD: sterktes worden als 'normaal' beschouwd. Welke kwaliteit van jezelf negeer jij misschien?", hint:"Vraag het eventueel aan iemand die je goed kent — hun antwoord verrast je misschien."},
+  ],
+  // Generiek fallback
+  generic: [
+    {tag:'m', q:"Welk item raakte je het meest? Wat maakt dat dit zo herkenbaar is voor jou?", hint:"Er is geen verwachting — schrijf wat er opkomt."},
+    {tag:'e', q:"Als je dit profiel bekijkt: wat wil je het liefst veranderen? En wat wil je juist koesteren?", hint:""},
+  ]
+};
+
+// ══════════════════════════════════════════
+// DYNAMIC CONCLUSION ENGINE
+// ══════════════════════════════════════════
+function generateConclusion(stats) {
+  const {chE,chM,chU,stE,stM,stU,totalCh,totalSt,domainScores,addictionRec,emotionTruth} = stats;
+  const blocks = [];
+
+  // 1. Dominant dimension
+  const dimScores = {E:chE+stE, M:chM+stM, U:chU+stU};
+  const dominant = Object.entries(dimScores).sort((a,b)=>b[1]-a[1])[0][0];
+  const dimLabels = {E:"emotioneel",M:"mentaal",U:"gedragsmatig"};
+  const dimTexts = {
+    E: "Jouw belevingswereld is sterk emotioneel gekleurd. Je voelt intens, reageert vanuit gevoel en hecht veel waarde aan verbinding en eerlijkheid.",
+    M: "Je denkvermogen is dominant aanwezig — zowel als motor als als rem. Creativiteit en associatief denken zijn echte troeven, maar je hoofd staat ook zelden stil.",
+    U: "Jouw uitdagingen en sterktes zijn het meest zichtbaar in gedrag en hoe je overkomt voor anderen — er is soms een kloof tussen wat je bedoelt en wat anderen zien."
+  };
+  blocks.push({icon:"🧭", title:"Jouw dominante dimensie", text: dimTexts[dominant], highlight: true});
+
+  // 2. Balans uitdagingen vs sterktes
+  const total = totalCh + totalSt;
+  if(total > 0){
+    const stRatio = totalSt / total;
+    let balText = "";
+    if(stRatio < 0.25 && totalCh >= 4){
+      balText = "Je herkende veel uitdagingen maar weinig sterktes. Dat is een klassiek ADHD-patroon: sterktes worden als 'gewoon' beschouwd en ondergewaardeerd. Ze zijn er wel — ze vragen alleen om een andere blik.";
+    } else if(stRatio > 0.65){
+      balText = "Je herkent relatief veel sterktes — dat is een goed teken van zelfbewustzijn. De uitdagingen die je aanvinkte, zijn reëel, maar je hebt ook duidelijke hefbomen om mee te werken.";
+    } else {
+      balText = "Je profiel toont een realistisch evenwicht tussen wat moeilijk gaat en wat goed gaat. Beide kanten zijn belangrijk om te begrijpen.";
+    }
+    blocks.push({icon:"⚖️", title:"Balans in je profiel", text: balText, highlight: false});
+  }
+
+  // 3. Sociale dimensie
+  if(domainScores[2].ch >= 3){
+    blocks.push({icon:"🔗", title:"Relaties en verbinding", text:"Relaties zijn een complexe zone voor jou. Je voelt veel en hecht sterk aan wat anderen denken, maar de verbinding loopt soms anders dan bedoeld. Begrijpen hoe jouw gedrag overkomt is een sleutelstap.", highlight:false});
+  }
+
+  // 4. Emotieregulatie specifiek
+  if(chE >= 3){
+    blocks.push({icon:"🌊", title:"Emotionele regulatie", text:"Emoties komen snel en intens — ontlading zit dicht aan de oppervlakte. Leren onderscheiden wat je voelt (en dat benoemen vóór je reageert) is een van de meest impactvolle vaardigheden die je kunt ontwikkelen.", highlight: false});
+  }
+
+  // 5. Verslaving specifiek
+  if(addictionRec){
+    blocks.push({icon:"🔄", title:"Verslavingsgevoeligheid", text:"Je herkende verslavingsgevoeligheid. Bij ADHD is dit vaak gekoppeld aan dopaminetekort en behoefte aan stimulatie — het is geen karakterfout. Begrijpen wat een middel of gedrag jou geeft, is de eerste stap naar alternatieven.", highlight:false});
+  }
+
+  // 6. Ontwikkelingsrichting
+  const devLines = [];
+  if(chM >= 3) devLines.push("leren werken met structuur als bondgenoot, niet als vijand");
+  if(chE >= 2) devLines.push("emoties leren onderscheiden en verwerken");
+  if(dimScores.M > 2) devLines.push("cognities en schema's uitdagen — ruimte maken voor andere denkkaders");
+  devLines.push("zichzelf aanvaarden en zichzelf leren zijn");
+  blocks.push({icon:"🌱", title:"Ontwikkelingsrichting", text: devLines.map(l=>`→ ${l.charAt(0).toUpperCase()+l.slice(1)}`).join("<br>"), highlight:false});
+
+  return blocks;
+}
+
+// ══════════════════════════════════════════
+// REFLECTION QUESTION SELECTOR
+// ══════════════════════════════════════════
+function selectReflections(stats, recKeys) {
+  const {chE,chM,chU,stE,stM,stU,totalCh,totalSt,addictionRec} = stats;
+  const questions = [];
+
+  // Always pick based on dominant challenge dimension
+  if(chE >= chM && chE >= chU && chE >= 2) questions.push(REFLECT_BANK.E_challenge[0]);
+  else if(chM >= chE && chM >= chU && chM >= 2) questions.push(REFLECT_BANK.M_challenge[0]);
+  else if(chU >= 2) questions.push(REFLECT_BANK.U_challenge[0]);
+
+  // Addiction specific
+  if(addictionRec) questions.push(REFLECT_BANK.addiction[0]);
+
+  // Blind spot (much more challenges than strengths)
+  const total = totalCh + totalSt;
+  if(total > 0 && totalSt/total < 0.25 && totalCh >= 4) questions.push(REFLECT_BANK.blind_spot[0]);
+
+  // Strength question based on dominant strength dimension
+  if(stE >= stM && stE >= stU && stE >= 1) questions.push(REFLECT_BANK.E_strength[0]);
+  else if(stM >= 1) questions.push(REFLECT_BANK.M_strength[0]);
+
+  // Fallback
+  if(questions.length === 0) questions.push(...REFLECT_BANK.generic);
+
+  // Return max 3 unique
+  return questions.slice(0,3);
+}
+
+// ══════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════
+let activeFilter = 'all';
+let recognized = new Set();
+
+// Compute totals
+const TAG_TOTALS = {U:0,M:0,E:0};
+DOMAINS.forEach(d=>{[...d.challenges,...d.strengths].forEach(i=>i.tags.forEach(t=>{if(TAG_TOTALS[t]!==undefined)TAG_TOTALS[t]++;}));});
+
+function getStats(){
+  let chE=0,chM=0,chU=0,stE=0,stM=0,stU=0,totalCh=0,totalSt=0;
+  let addictionRec=false, emotionTruth=false;
+  const domainScores=[{ch:0,st:0},{ch:0,st:0},{ch:0,st:0}];
+
+  recognized.forEach(key=>{
+    const p=key.split('-'); const type=p[0],di=parseInt(p[1]),ii=parseInt(p[2]);
+    const item = type==='c'?DOMAINS[di].challenges[ii]:DOMAINS[di].strengths[ii];
+    const isCh = type==='c';
+    if(isCh){totalCh++;domainScores[di].ch++;}
+    else{totalSt++;domainScores[di].st++;}
+    item.tags.forEach(t=>{
+      if(t==='U'){if(isCh)chU++;else stU++;}
+      if(t==='M'){if(isCh)chM++;else stM++;}
+      if(t==='E'){if(isCh)chE++;else stE++;}
+    });
+    if(item.text.includes('verslavingsgevoelig')) addictionRec=true;
+    if(item.text.includes('sterk voel')) emotionTruth=true;
+  });
+  return {chE,chM,chU,stE,stM,stU,totalCh,totalSt,domainScores,addictionRec,emotionTruth};
+}
+
+// ══════════════════════════════════════════
+// RENDER DOMAINS
+// ══════════════════════════════════════════
+function renderDomains(){
+  const c=document.getElementById('domains-container');c.innerHTML='';
+  DOMAINS.forEach((domain,di)=>{
+    const sec=document.createElement('div');sec.className='domain-section';
+    const totalItems=domain.challenges.length+domain.strengths.length;
+    sec.innerHTML=`
+      <div class="domain-header open" onclick="toggleDomain(${di})">
+        <div class="domain-num">${domain.id}</div>
+        <div class="domain-title-text">${domain.title}</div>
+        <div class="domain-badge">${totalItems} kenmerken</div>
+        <div class="domain-arrow">▾</div>
+      </div>
+      <div class="domain-body open" id="db-${di}">
+        <div><div class="col-head ch">⚠ Uitdagingen</div><div class="items-col ch-col" id="ch-${di}"></div></div>
+        <div><div class="col-head st">★ Sterktes</div><div class="items-col st-col" id="st-${di}"></div></div>
+      </div>`;
+    c.appendChild(sec);
+    domain.challenges.forEach((item,ii)=>{
+      document.getElementById(`ch-${di}`).appendChild(createItem(item,`c-${di}-${ii}`,'ch'));
+    });
+    domain.strengths.forEach((item,ii)=>{
+      document.getElementById(`st-${di}`).appendChild(createItem(item,`s-${di}-${ii}`,'st'));
+    });
+  });
+}
+
+function createItem(item,key,type){
+  const el=document.createElement('div');
+  el.className=`item ${type}${recognized.has(key)?' rec':''}`;
+  el.dataset.key=key;el.dataset.tags=item.tags.join(',');
+  const tagsHtml=item.tags.map(t=>`<span class="tag ${t}">${t}</span>`).join('');
+  el.innerHTML=`
+    <div class="item-icon">${item.icon||'•'}</div>
+    <div class="check">✓</div>
+    <div><div class="item-text">${item.text}</div>${item.tags.length?`<div class="item-tags">${tagsHtml}</div>`:''}</div>`;
+  el.onclick=()=>toggleItem(key,el);
+  applyFilterEl(el);
+  return el;
+}
+
+function toggleItem(key,el){
+  if(recognized.has(key)){recognized.delete(key);el.classList.remove('rec');}
+  else{recognized.add(key);el.classList.add('rec');}
+  updateMiniProgress();
+}
+
+function toggleDomain(di){
+  const b=document.getElementById(`db-${di}`);
+  b.classList.toggle('open');
+  b.previousElementSibling.classList.toggle('open');
+}
+
+function setFilter(f,btn){
+  activeFilter=f;
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active','fa-u','fa-m','fa-e'));
+  if(f==='all')btn.classList.add('active');
+  else btn.classList.add(`fa-${f.toLowerCase()}`);
+  document.querySelectorAll('.item').forEach(el=>applyFilterEl(el));
+}
+
+function applyFilterEl(el){
+  const tags=el.dataset.tags?el.dataset.tags.split(',').filter(Boolean):[];
+  const show=activeFilter==='all'||tags.includes(activeFilter)||tags.length===0;
+  el.classList.toggle('dimmed',!show);
+}
+
+function updateMiniProgress(){
+  const s=getStats();
+  const tagRec={U:0,M:0,E:0};
+  recognized.forEach(key=>{
+    const p=key.split('-'),type=p[0],di=parseInt(p[1]),ii=parseInt(p[2]);
+    const item=type==='c'?DOMAINS[di].challenges[ii]:DOMAINS[di].strengths[ii];
+    item.tags.forEach(t=>{if(tagRec[t]!==undefined)tagRec[t]++;});
+  });
+  document.getElementById('mp-total').textContent=recognized.size;
+  document.getElementById('mp-ch').textContent=s.totalCh;
+  document.getElementById('mp-st').textContent=s.totalSt;
+  ['U','M','E'].forEach(t=>{
+    const pct=TAG_TOTALS[t]?Math.round(tagRec[t]/TAG_TOTALS[t]*100):0;
+    document.getElementById(`fill-${t}`).style.width=pct+'%';
+    document.getElementById(`ct-${t}`).textContent=tagRec[t];
+  });
+  document.getElementById('view-profile-btn').disabled=recognized.size<3;
+}
+
+// ══════════════════════════════════════════
+// RADAR CHART (SVG)
+// ══════════════════════════════════════════
+function drawRadar(stats){
+  const {chE,chM,chU,stE,stM,stU} = stats;
+  const dims = [
+    {label:'Uitd. Emotioneel',val:chE,max:8,color:'var(--e)',angle:-90},
+    {label:'Uitd. Mentaal',val:chM,max:10,color:'var(--m)',angle:-90+60},
+    {label:'Uitd. Uiterlijk',val:chU,max:8,color:'var(--u)',angle:-90+120},
+    {label:'Sterktes Uitd.',val:stU,max:6,color:'var(--u)',angle:-90+180},
+    {label:'Sterktes Mentaal',val:stM,max:9,color:'var(--m)',angle:-90+240},
+    {label:'Sterktes Emot.',val:stE,max:7,color:'var(--e)',angle:-90+300},
+  ];
+
+  const cx=120,cy=120,r=90;
+  const toRad=d=>d*Math.PI/180;
+  const pt=(angle,dist)=>[
+    cx+dist*Math.cos(toRad(angle)),
+    cy+dist*Math.sin(toRad(angle))
+  ];
+
+  // Grid lines
+  let gridSvg='';
+  [0.25,0.5,0.75,1].forEach(frac=>{
+    const pts=dims.map(d=>pt(d.angle,frac*r));
+    gridSvg+=`<polygon points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="rgba(26,21,16,0.08)" stroke-width="1"/>`;
+  });
+
+  // Axis lines
+  dims.forEach(d=>{
+    const [x,y]=pt(d.angle,r);
+    gridSvg+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="rgba(26,21,16,0.08)" stroke-width="1"/>`;
+  });
+
+  // Data polygon
+  const dataPts=dims.map(d=>{const frac=d.max?Math.min(d.val/d.max,1):0;return pt(d.angle,frac*r);});
+  const polyPts=dataPts.map(p=>p.join(',')).join(' ');
+
+  // Labels
+  let labelSvg='';
+  dims.forEach((d,i)=>{
+    const [x,y]=pt(d.angle,r+18);
+    const frac=d.max?Math.min(d.val/d.max,1):0;
+    labelSvg+=`<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="middle" font-size="8" font-family="DM Sans,sans-serif" fill="rgba(26,21,16,0.45)">${d.label}</text>`;
+    const [dx,dy]=dataPts[i];
+    if(d.val>0) labelSvg+=`<circle cx="${dx}" cy="${dy}" r="3" fill="${d.color}"/>`;
+  });
+
+  return `<svg viewBox="0 0 240 240" width="220" height="220">
+    ${gridSvg}
+    <polygon points="${polyPts}" fill="rgba(26,107,158,0.12)" stroke="var(--m)" stroke-width="1.5"/>
+    ${labelSvg}
+    <circle cx="${cx}" cy="${cy}" r="3" fill="var(--ink3)"/>
+  </svg>`;
+}
+
+// ══════════════════════════════════════════
+// RENDER PROFILE PAGE
+// ══════════════════════════════════════════
+function renderProfile(){
+  if(recognized.size<3){
+    document.getElementById('profile-content').innerHTML=`
+      <div class="empty-state">
+        <div class="es-icon">🧭</div>
+        <p>Vink minstens 3 items aan in stap 1 om je profiel te zien.</p>
+        <button onclick="showPage('build',document.querySelector('.nav-tab'))">← Ga naar stap 1</button>
+      </div>`;
+    return;
+  }
+
+  const stats=getStats();
+  const {chE,chM,chU,stE,stM,stU,totalCh,totalSt,domainScores}=stats;
+  const tagRec={U:chU+stU,M:chM+stM,E:chE+stE};
+
+  // Radar
+  const radarSvg=drawRadar(stats);
+
+  // Balance rows
+  const total=totalCh+totalSt||1;
+  const stRatio=Math.round(totalSt/total*100);
+  const chRatio=100-stRatio;
+
+  // Dimension balance
+  const dimRows=['U','M','E'].map(t=>{
+    const chVal=t==='U'?chU:t==='M'?chM:chE;
+    const stVal=t==='U'?stU:t==='M'?stM:stE;
+    const dTotal=chVal+stVal||1;
+    const stPct=Math.round(stVal/dTotal*100);
+    const color=t==='U'?'var(--u)':t==='M'?'var(--m)':'var(--e)';
+    return `<div class="balance-row">
+      <div class="balance-label"><span style="color:${color};font-weight:600">${t} — ${t==='U'?'Uiterlijk':t==='M'?'Mentaal':'Emotioneel'}</span><span>${stPct}% sterktes</span></div>
+      <div class="balance-bar"><div class="balance-inner" style="width:${stPct}%;background:${color}"></div><div class="balance-marker"></div></div>
+    </div>`;
+  }).join('');
+
+  // Insight text
+  let insightText='';
+  const minDim=['U','M','E'].reduce((a,t)=>{const v=t==='U'?stU:t==='M'?stM:stE;return v<a.v?{t,v}:a;},{t:'',v:999});
+  if(minDim.v===0&&totalCh>=3) insightText=`<div class="insight-box"><p><strong>Let op:</strong> Je herkende geen sterktes in de <strong>${minDim.t==='U'?'uiterlijke':minDim.t==='M'?'mentale':'emotionele'}</strong> dimensie. Dat betekent niet dat ze er niet zijn — bij ADHD worden sterktes vaak als vanzelfsprekend beschouwd.</p></div>`;
+
+  // Conclusion blocks
+  const cBlocks=generateConclusion(stats);
+  const cBlocksHtml=cBlocks.map(b=>`
+    <div class="c-block${b.highlight?' highlight':''}">
+      <div class="c-block-icon">${b.icon}</div>
+      <div class="c-block-title">${b.title}</div>
+      <div class="c-block-text">${b.text}</div>
+    </div>`).join('');
+
+  // Reflection questions
+  const reflections=selectReflections(stats,[...recognized]);
+  const reflectHtml=reflections.map((q,i)=>`
+    <div class="reflect-card">
+      <div class="rc-tag ${q.tag}">${q.tag==='u'?'U — Uiterlijk':q.tag==='m'?'M — Mentaal':'E — Emotioneel'}</div>
+      <div class="rc-q">${q.q}</div>
+      ${q.hint?`<div class="rc-hint">💡 ${q.hint}</div>`:''}
+      <textarea placeholder="Schrijf hier je gedachten..."></textarea>
+    </div>`).join('');
+
+  document.getElementById('profile-content').innerHTML=`
+    <div class="profile-grid">
+      <div class="radar-wrap">
+        <h3>Jouw profiel in beeld</h3>
+        <div class="sub">Hoe jouw herkende kenmerken verdeeld zijn</div>
+        ${radarSvg}
+      </div>
+      <div class="balance-panel">
+        <h3>Uitdaging vs. Sterkte</h3>
+        <div class="sub">Per dimensie — streep in het midden = evenwicht</div>
+        ${dimRows}
+        ${insightText}
+      </div>
+    </div>
+
+    <div class="conclusion-card">
+      <h3>Wat dit profiel over jou zegt</h3>
+      <div class="conclusion-blocks">${cBlocksHtml}</div>
+    </div>
+
+    <div class="reflect-section">
+      <h3>Reflectievragen</h3>
+      <div class="sub">Gebaseerd op jouw profiel — als gespreksopener, niet als huiswerk</div>
+      <div class="reflect-cards">${reflectHtml}</div>
+    </div>`;
+}
+
+// ══════════════════════════════════════════
+// NAV
+// ══════════════════════════════════════════
+function showPage(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  if(btn) btn.classList.add('active');
+  if(id==='profile') renderProfile();
+}
+
+// INIT
+renderDomains();
+updateMiniProgress();
+</script>
+</body>
+</html>

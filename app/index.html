@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mijn Focusprofiel — de Kiem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- App Navigation -->
+    <nav class="app-nav">
+        <div class="nav-logo-container">
+            <img src="data:image/png;base64,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" alt="De Kiem" class="nav-logo" />
+            <div class="nav-brand">
+            <div class="nav-brand-title">Mijn Focusprofiel</div>
+            <div class="nav-brand-sub">Kenmerken & sterktes</div>
+        </div>
+        </div>
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="showPage('build', this)" id="tab-build">1. Vink aan</button>
+            <button class="nav-tab" onclick="showPage('profile', this)" id="tab-profile" disabled>2. Jouw profiel</button>
+        </div>
+    </nav>
+
+    <!-- PAGE 1: OPBOUWEN -->
+    <div class="page active" id="page-build">
+        <header class="header">
+            <h1>Herken jij dit?</h1>
+            <p class="subtitle">Klik op de kaarten die op jou van toepassing zijn. Klik op de (i) voor uitleg per item.</p>
+
+        <div class="dim-intro">
+            <div class="dim-panel u">
+                <div class="dim-panel-code">U &mdash; Uiterlijk</div>
+                <div class="dim-panel-title">Wat anderen<br>kunnen zien</div>
+                <div class="dim-icons">
+                    <div class="dim-icon-chip">🏃 Hyperactiviteit</div>
+                    <div class="dim-icon-chip">💭 Dagdromen</div>
+                    <div class="dim-icon-chip">⏰ Tijdsblindheid</div>
+                    <div class="dim-icon-chip">💥 Impulsief</div>
+                </div>
+            </div>
+            <div class="dim-panel m">
+                <div class="dim-panel-code">M &mdash; Mentaal</div>
+                <div class="dim-panel-title">Hoe je<br>denkt</div>
+                <div class="dim-icons">
+                    <div class="dim-icon-chip">🌀 Overthinking</div>
+                    <div class="dim-icon-chip">📅 Alleen nu</div>
+                    <div class="dim-icon-chip">🔀 Non-lineair</div>
+                    <div class="dim-icon-chip">🎯 Hyperfocus</div>
+                </div>
+            </div>
+            <div class="dim-panel e">
+                <div class="dim-panel-code">E &mdash; Emotioneel</div>
+                <div class="dim-panel-title">Hoe je<br>voelt</div>
+                <div class="dim-icons">
+                    <div class="dim-icon-chip">⚡ Ontlading</div>
+                    <div class="dim-icon-chip">🌊 Overspoeling</div>
+                    <div class="dim-icon-chip">🔥 Intensiteit</div>
+                    <div class="dim-icon-chip">📡 Gevoeligheid</div>
+                </div>
+            </div>
+        </div>
+            
+            <div class="filters">
+                <span class="filter-label">Filter:</span>
+                <button class="filter-btn active" data-filter="all">Alles tonen</button>
+                <button class="filter-btn U" data-filter="U">Uiterlijk (gedrag)</button>
+                <button class="filter-btn M" data-filter="M">Mentaal (denken)</button>
+                <button class="filter-btn E" data-filter="E">Emotioneel (voelen)</button>
+            </div>
+        </header>
+
+        <main class="domains-container" id="domains-container">
+            <!-- Rendered via JS -->
+        </main>
+
+        <!-- Spacer for sticky footer -->
+        <div style="height: 100px;"></div>
+    </div>
+
+    <!-- Sticky Progress Bar for Page 1 -->
+    <div class="sticky-progress" id="sticky-progress">
+        <div class="mp-stats">
+            <div class="mp-stat"><div class="mp-num" id="mp-total">0</div><div class="mp-label">geselecteerd</div></div>
+        </div>
+        <div class="mp-bars">
+            <div class="mp-row"><span class="mp-rl U" style="color:var(--color-u)">U</span><div class="mp-bg"><div class="mp-fill U" id="fill-U"></div></div><span class="mp-ct" id="ct-U">0</span></div>
+            <div class="mp-row"><span class="mp-rl M" style="color:var(--color-m)">M</span><div class="mp-bg"><div class="mp-fill M" id="fill-M"></div></div><span class="mp-ct" id="ct-M">0</span></div>
+            <div class="mp-row"><span class="mp-rl E" style="color:var(--color-e)">E</span><div class="mp-bg"><div class="mp-fill E" id="fill-E"></div></div><span class="mp-ct" id="ct-E">0</span></div>
+        </div>
+        <button class="cta-btn" id="view-profile-btn" onclick="showPage('profile', document.getElementById('tab-profile'))" disabled>
+            Analyseer profiel &rarr;
+        </button>
+    </div>
+
+    <!-- PAGE 2: PROFIEL -->
+    <div class="page" id="page-profile">
+        <header class="header">
+            <h1>Jouw Unieke Profiel</h1>
+            <p class="subtitle">Een spiegel van patronen en sterktes, gebaseerd op wat jij zojuist herkende.</p>
+        </header>
+        <div id="profile-content">
+            <!-- Rendered via JS -->
+        </div>
+        <div style="height: 60px;"></div>
+    </div>
+
+    <!-- Tooltip -->
+    <div class="tooltip" id="tooltip">
+        <h2 id="tooltip-title">Titel</h2>
+        <div id="tooltip-tags" class="modal-tags"></div>
+        <div id="tooltip-body" class="tooltip-body">Uitleg komt hier.</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
